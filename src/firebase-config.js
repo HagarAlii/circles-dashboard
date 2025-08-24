@@ -28,10 +28,10 @@ export const GoogleProvider = new GoogleAuthProvider();
 
 async function blockReportedUsers() {
   const usersRef = collection(db, "users");
-  const q = query(usersRef, where("reported", ">=", 5));
+  const q = query(usersRef, where("reports", ">=", 2));
   const querySnapshot = await getDocs(q);
 
-  console.log("Users with reported >= 5 found:", querySnapshot.size);
+  console.log("Users with reports >=2 found:", querySnapshot.size);
 
   querySnapshot.forEach(async (userDoc) => {
     const userData = userDoc.data();

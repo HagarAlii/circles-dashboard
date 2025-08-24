@@ -1,10 +1,12 @@
-export default function UserCard({ user, formatDate }) {
+export default function UserCard({ user = {}, formatDate }) {
   const stats = user.stats || {};
-  const reportCount = user.reported || 0;
+  const reportCount = user.reports || 0;
   const initial =
     user.displayName?.[0]?.toUpperCase() ||
     user.username?.[0]?.toUpperCase() ||
     "?";
+
+  const isBlocked = user.isBlocked === true;
 
   return (
     <div
@@ -22,21 +24,23 @@ export default function UserCard({ user, formatDate }) {
         text-gray-900 dark:text-gray-100
         transition-transform duration-300 ease-in-out
         hover:scale-[1] hover:shadow-xl hover:shadow-indigo-500/20
-        ${user.isBlocked 
-          ? 'border border-black dark:border-black' 
-          : 'border border-white/20 dark:border-gray-700/40'}
+        ${isBlocked
+          ? "border-2 border-black/60 dark:border-red-500"
+          : "border border-white/20 dark:border-gray-700/40"
+        }
+        ${isBlocked ? "opacity-80" : ""}
       `}
       style={{
         WebkitBackdropFilter: "blur(10px)",
         backdropFilter: "blur(10px)",
       }}
     >
-      {/* 🚫 Blocked badge*/}
-      {user.isBlocked && (
+      {/* 🚫 Blocked badge */}
+      {isBlocked && (
         <div
           className="
-            absolute translate-y-[-50%] top-0 right-3
-            bg-black text-white
+            absolute -translate-y-1/2 top-0 right-3
+            bg-black/60 text-white
             text-[11px] font-semibold
             px-3 py-1 rounded-full
             shadow-md
@@ -65,12 +69,12 @@ export default function UserCard({ user, formatDate }) {
         </div>
       )}
 
-      {/* ⚠️ Reported badge (below blocked badge, top-right) */}
+      {/* ⚠️ Reported badge */}
       {reportCount > 0 && (
         <div
           className={`
             absolute
-            ${user.isBlocked ? "top-10" : "top-3"} right-3
+            ${isBlocked ? "top-10" : "top-3"} right-3
             bg-red-700 bg-opacity-90
             text-white text-[11px] font-semibold
             px-3 py-1 rounded-full
@@ -101,10 +105,10 @@ export default function UserCard({ user, formatDate }) {
         </div>
       )}
 
-       {/* Avatar */}
-      {user.avatarPhoto ? (
+      {/* Avatar */}
+      {user.photoUrl ? (
         <img
-          src={user.avatarPhoto}
+          src={user.photoUrl}
           alt={user.username || "User avatar"}
           className="w-12 h-12 rounded-full object-cover"
         />

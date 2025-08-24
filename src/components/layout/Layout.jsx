@@ -2,10 +2,10 @@ import Sidebar from "../sideBar/Sidebar";
 import Navbar from "../navbar/Navbar";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useAdmin } from "../../Context/useAdmin"; 
+import { useAdmin } from "../../Context/useAdmin";
 
 export default function App() {
-  const { admin, loading } = useAdmin(); 
+  const { admin, loading } = useAdmin();
 
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem("darkMode");
@@ -38,7 +38,9 @@ export default function App() {
             loading={loading}
           />
           <main>
-            <Outlet />
+            <div className="pt-6">
+              <Outlet />
+            </div>
           </main>
         </div>
       </div>

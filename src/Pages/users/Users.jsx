@@ -34,25 +34,21 @@ export default function Users() {
       try {
         const usersCol = collection(db, "users");
         const usersSnapshot = await getDocs(usersCol);
+
         const usersList = usersSnapshot.docs
           .map((doc) => {
             const data = doc.data();
-
-            const reportedCount = Number(data.reported || 0);
-
             return {
               id: doc.id,
-              ...data,
-              reported: reportedCount,
-              isBlocked: reportedCount > 5,
+              ...data, 
             };
           })
-          .filter((user) => !user.isAdmin);
+          .filter((user) => !user.isAdmin); 
 
         setUsers(usersList);
       } catch (err) {
-        setError("Failed to fetch users.");
         console.error(err);
+        setError("Failed to fetch users.");
       } finally {
         setLoading(false);
       }
@@ -75,17 +71,16 @@ export default function Users() {
       name.includes(searchTerm.toLowerCase()) ||
       email.includes(searchTerm.toLowerCase());
 
-    const isReported = (user.reported || 0) > 0;
+    const isReported = (user.reports || 0) > 0;
     const isBlocked = user.isBlocked === true;
 
     let reportMatch = false;
-
     switch (filterReported) {
       case "all":
         reportMatch = true;
         break;
       case "reported":
-        reportMatch = isReported;
+        reportMatch = isReported && !isBlocked; // reported but not blocked
         break;
       case "blocked":
         reportMatch = isBlocked;
@@ -139,7 +134,9 @@ export default function Users() {
   if (!loading && filteredUsers.length === 0)
     return (
       <div className="p-6 max-w-full min-h-screen flex flex-col items-center justify-center text-white dark:text-gray-400">
-        <p className="mb-4 text-xl font-semibold">No users found.</p>
+        <p className="mb-4 text-xl font-semibold">
+          {filterReported === "blocked" ? "No blocked users found." : "No users found."}
+        </p>
         <p>Try adjusting your filters or search criteria.</p>
       </div>
     );
@@ -159,16 +156,10 @@ export default function Users() {
           xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 4v16m8-8H4"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
         </svg>
         <div>
-          <h2 className="text-3xl font-extrabold text-primary">
-            Users Overview
-          </h2>
+          <h2 className="text-3xl font-extrabold text-primary">Users Overview</h2>
           <BlurText
             text=" Detailed insights on user activity"
             delay={150}
@@ -201,6 +192,7 @@ export default function Users() {
           <option value="name">Name (A-Z)</option>
           <option value="email">Email (A-Z)</option>
         </select>
+
         <select
           aria-label="Filter reported users"
           value={filterReported}
@@ -223,23 +215,6 @@ export default function Users() {
               <UserCard key={user.id} user={user} formatDate={formatDate} />
             ))}
       </div>
-      {!loading && filteredUsers.length === 0 && (
-        <div className="p-6 max-w-full flex flex-col items-center justify-center text-white dark:text-gray-400">
-          {filterReported === "blocked" ? (
-            <>
-              <p className="mb-4 text-xl font-semibold">
-                No blocked users found.
-              </p>
-              <p>Try adjusting your filters or search criteria.</p>
-            </>
-          ) : (
-            <>
-              <p className="mb-4 text-xl font-semibold">No users found.</p>
-              <p>Try adjusting your filters or search criteria.</p>
-            </>
-          )}
-        </div>
-      )}
 
       {/* Pagination Controls */}
       {!loading && totalPages > 1 && (
