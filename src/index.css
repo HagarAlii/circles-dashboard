@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import "tailwindcss";
+:root {
+  /* ReactBits Light Mode Palette - now white & purple */
+  --color-bg-main: #f9f9ff; /* very light purple/white background */
+  --color-bg-gradient: linear-gradient(135deg, #9f8de0 0%, #c6c1e7 100%);
+  
+  --color-primary: #5c57a1; /* purple text main */
+  --color-secondary: #a3a0c7; /* lighter purple text secondary */
+  
+  --color-text-primary: #5c57a1;
+  --color-text-secondary: #a3a0c7;
+  
+  --color-input-bg: rgba(108, 95, 199, 0.15); /* translucent purple */
+  
+  --shadow-main: rgba(108, 95, 199, 0.7);
+  --shadow-glass: rgba(108, 95, 199, 0.4);
+  
+  --rounded-pill: 50px;
+  --rounded-rounded: 20px;
+  
+  --gradient-from: #9f8de0;
+  --gradient-via: #7c6bca;
+  --gradient-to: #6c5fc7;
+}
+
+.dark {
+  /* ReactBits Dark Mode Palette - now blue shades */
+  --color-bg-main: #2d2c59;
+  --color-bg-gradient: linear-gradient(135deg, #2d2c59 0%, #5c57a1 100%);
+  
+  --color-primary: #f9f9f9; /* white text */
+  --color-secondary: #a3a0c7; /* lighter purple text secondary */
+  
+  --color-text-primary: #f9f9f9;
+  --color-text-secondary: #a3a0c7;
+  
+  --color-input-bg: rgba(255, 255, 255, 0.1);
+  
+  --shadow-main: rgba(45, 44, 89, 0.7);
+  --shadow-glass: rgba(45, 44, 89, 0.4);
+  
+  --rounded-pill: 50px;
+  --rounded-rounded: 20px;
+  
+  --gradient-from: #2d2c59;
+  --gradient-via: #463f89;
+  --gradient-to: #5c57a1;
+}
+
+
+/* Keep the rest of your CSS as-is */
+
+/* Background gradient */
+.bg-gradient-main {
+  background: var(--color-bg-gradient);
+}
+
+/* Button with gradient */
+.btn-primary {
+  background: linear-gradient(90deg, var(--gradient-from) 0%, var(--gradient-to) 100%);
+  color: var(--color-text-primary);
+  border-radius: var(--rounded-pill);
+  box-shadow: inset 0 0 0 transparent;
+  transition: box-shadow 0.3s ease;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+
+/* Text colors */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+/* Inputs */
+.input-bg {
+  background-color: var(--color-input-bg);
+  border-radius: var(--rounded-rounded);
+  border: none;
+  padding: 0.5rem 1rem;
+  color: var(--color-text-primary);
+}
+
+/* Body */
+body {
+ font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+}
+
+.text-shadow-soft {
+  text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.light .text-shadow-soft {
+  text-shadow: 2px 2px 0px rgba(67, 61, 139, 0.4);
+}
+
+@keyframes fade-slide-in-from-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.gravitas {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bg{
+  background-image: url(./assets/imgs/shapes-bg.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: repeat-y;
+  background-blend-mode: multiply;
+}
