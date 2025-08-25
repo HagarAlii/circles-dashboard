@@ -60,7 +60,7 @@ export default function AdminAnnouncements() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-[100vh] px-4 bg-[var(--color-input-bg)] backdrop-blur-md shadow-lg pt-18 border border-[var(--shadow-glass)] transition-all duration-500 bg-gradient-to-r from-[var(--gradient-from)] via-[var(--gradient-via)] to-[var(--gradient-to)]">
+    <div className="flex items-center justify-center min-h-[100vh] px-4 bg-[var(--color-input-bg)] backdrop-blur-md shadow-lg pt-8 border border-[var(--shadow-glass)] transition-all duration-500 bg-gradient-to-r from-[var(--gradient-from)] via-[var(--gradient-via)] to-[var(--gradient-to)]">
       <section className="w-full max-w-3xl bg-transparent backdrop-blur-md shadow-lg rounded-[var(--rounded-rounded)] p-8 border border-[var(--shadow-glass)] transition-all duration-500">
         <div className="mb-10">
           <BlurText

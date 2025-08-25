@@ -80,7 +80,7 @@ export default function Users() {
         reportMatch = true;
         break;
       case "reported":
-        reportMatch = isReported && !isBlocked; // reported but not blocked
+        reportMatch = isReported ; // reported but not blocked
         break;
       case "blocked":
         reportMatch = isBlocked;
